@@ -1,0 +1,209 @@
+# --- pages/6_Job_Prediction.py ---
+import streamlit as st
+import pandas as pd
+import joblib
+
+job_assets = {
+		"Associate Software Engineer":{
+		"image":	"assets/Associate Software Engineer.png",
+		"desc":		"Your strong logical reasoning (PT1) and comfort with structured tasks (PT2) support your strength in coding and debugging. You prefer tech-based learning (LP5) and can work independently (CS4), making you ideal for developing and maintaining software systems with precision and focus."
+	},
+	
+	"Business Process Analyst":{
+		"image":	"assets/Business Process Analyst.png",
+		"desc":		"Your results show a talent for pattern recognition (CS6) and systematic thinking (PT1). You enjoy data-driven decision-making (PT6) and learning through real-world business cases (LP6), making you a perfect fit for analyzing workflows and optimizing operations."
+	},
+	
+	"Development Engineer":{
+		"Image":	"assets/Development Engineer.png",
+		"desc":		"With a strong drive for innovation (PT4) and technical problem-solving (CS1), you thrive in environments that challenge your creativity. You prefer visual and experimental learning (LP2, LP6) and collaborate well with others (PT5), making you suited for developing new technologies and engineering solutions."
+	},
+
+	 "Engineering Analysis Staff":{
+		"image":	"assets/Engineer Analysis Staff.png",
+		"desc":		"You have a methodical mindset (PT2) and excel in critical thinking and quantitative analysis (CS1). Your preference for data-focused learning (LP6) and your professional discipline (PS4) equip you to assess engineering problems and provide actionable insights."
+	},
+
+	"Engineering Management Staff/Engineer":{
+		"image":	"assets/Engineering Management Staff_Engineer.png",
+		"desc":		"You demonstrate leadership qualities (PS6), a preference for structured planning (PT2), and strong collaboration (PT5). With a mix of strategic thinking (PT1) and professional initiative (PS1), you're suited to lead teams, manage projects, and drive engineering performance."
+	},
+
+	"Facilities Engineering & Energy Management Engineer":{
+		"image":	"assets/Facilities Engineering & Energy Management Engineer.png",
+		"desc":		"You excel in technical reasoning (CS1), are hands-on in your learning (LP1), and have a focus on efficiency and sustainability (PT4). Your ability to analyze physical systems and optimize resources supports roles in facility operations and energy management."
+	},
+
+	"Government Associate":{
+		"image":	"assets/Government Associate.png",
+		"desc":		"Your sense of responsibility (PS3), structured thinking (PT2), and ethical mindset position you well for public service roles. You prefer learning through applied case scenarios (LP6) and work effectively within clear guidelines—perfect for regulatory, infrastructure, or policy-focused technical roles."
+	},
+
+	"Industrial Engineer":{
+		"image"		:"assets/Industrial Engineer.png",
+		"desc":		"Your responses highlight system optimization skills (CS5), structured planning (PT2), and a love for problem-solving (CS1). With strong organizational awareness (PS4) and the ability to analyze workflows, you’re naturally aligned with improving industrial processes and productivity."
+	},
+
+	"Instructor/ Professor":{
+		"image":	"assets/Instructor_Professor.png",
+		"desc":		"You demonstrate a passion for sharing knowledge (PS1), strong communication and reasoning skills (PT1, CS1), and a preference for conceptual learning (LP4). Your patience, clarity, and drive to help others grow make you an excellent educator or academic professional."
+	},
+
+	"Inventory Management, Business Process and Compliance Audit Manager":{
+		"image":	"assets/Inventory Management, Business Process and Compliance Audit Manager.png",
+		"desc": 		"You’re exceptionally detail-focused (PS4), organized (PT2), and systems-oriented (CS5). Your ability to enforce standards and maintain operational compliance reflects a balance of precision and strategic thinking (PT1, CS6)."
+	},
+
+	"Manufacturing Engineer":{
+		"image":	"assets/Manufacturing Engineer.png",
+		"desc":		"You thrive in hands-on environments (LP1) and are skilled in optimizing workflows (CS5). With strong coordination skills (CS2) and a structured mindset (PT2), you're well-equipped to oversee production efficiency and implement engineering improvements on the shop floor."
+	},
+
+	"Operational Excellence Engineer":{
+		"image":	"assets/Operational Excellence Engineer.png",
+		"desc":		"Your results highlight continuous improvement thinking (PT4), a knack for data-driven decisions (PT6), and a strong desire to enhance system performance (CS5). You’re a natural fit for leading Lean, Six Sigma, or Kaizen initiatives across business units."
+	},
+
+	"Operations Engineering & Management Engineer":{
+		"image":	"assets/Operations Engineering & Management Engineer.png",
+		"desc":		"You show a strong mix of leadership (PS6) and process optimization skills (CS5). Your comfort in structured environments (PT2) and your focus on efficiency (PT4) make you ideal for overseeing day-to-day operations and engineering team performance."
+	},
+
+	"Operations Research & Analysis Engineer":{
+		"image":	"assets/Operations Research & Analysis Engineer.png",
+		"desc":		"You're a data-focused thinker (PT1) with strong analytical and modeling skills (CS1, CS6). You enjoy learning through simulation and case studies (LP6), and your logical mindset suits complex problem-solving in operations and logistics systems."
+	},
+
+	"Order Management Supervisor":{
+		"image":	"assets/Order Management Supervisor.png",
+		"desc":		"You combine leadership and coordination skills (PS6, PT5) with a high degree of organizational discipline (PT2). Your strengths in process optimization (CS5) and collaborative problem-solving (PT1, CS3) make you ideal for managing order workflows, resolving bottlenecks, and ensuring customer satisfaction. Your learning preference for real-world scenarios (LP6) also supports your ability to adapt quickly to daily operational challenges."
+	},
+
+	"Parts Engineer":{
+		"image":	"assets/Parts Engineer.png",
+		"desc":		"You prefer structured, task-oriented work (PT2) and display great organizational and data accuracy (PS4). Your learning style supports visual and real-world applications (LP2, LP6), ideal for managing parts inventories and planning resource availability in technical settings."
+	},
+
+	
+	"Planner":{
+		"image":	"assets/Planner.png",
+		"desc":		"Your responses highlight your strengths in structured thinking (PT2), attention to detail (PS4), and systematic planning (CS5). You enjoy organizing information and prefer visual and data-based learning (LP2, LP6). With strong time management (PS5) and a logical mindset (PT1), you're highly suited to forecasting, scheduling, and aligning resources efficiently across operations."
+	},
+
+		"Process Engineer":{
+		"image":	"assets/Process Engineer.png",
+		"desc":		"You possess a strong ability to analyze and refine systems (CS5). Your attention to detail (PS4), structured workflow preference (PT2), and applied learning strengths (LP6) support process troubleshooting and continuous improvement efforts."
+	},
+
+	"Procurement/ Purchasing Engineer":{
+		"image":	"assets/Procurement_Purchasing Engineer.png",
+		"desc":		"You excel at negotiation (PT5), analyzing value and cost (CS1), and managing relationships across supply networks. Your learning style favors practical applications (LP6), and your logical and organized nature supports supplier evaluation and procurement strategy."
+	},
+
+	"Product Design & Development Staff/Engineer":{
+		"image":	"assets/Product Design & Development Engineer.png",
+		"desc":		"You are highly creative (PT4) with strong technical analysis skills (CS1). You learn best through visual aids and hands-on experimentation (LP2, LP1), ideal for turning concepts into functioning, user-centered designs."
+	},
+
+	"Production Engineer":{
+		"image":	"assets/Production Engineer.png",
+		"desc":		"You thrive in structured and practical environments (PT2, LP1) and are effective in monitoring efficiency and problem-solving on the line (CS5). Your initiative and focus on results (PS1, PT4) align with the fast-paced nature of production engineering."
+	},
+	
+	"Production Senior Supervisor":{
+		"image":	"assets/Production Senior Supervisor.png",
+		"desc":		"You display natural leadership and team coordination (PS6, PT5), as well as a focus on quality, safety, and productivity (PS4, PT4). You enjoy mentoring others and driving continuous improvement on the production floor."
+	},
+
+	"Project Engineer":{
+		"image":	"assets/Project Engineer.png",
+		"desc":		"Your responses show strength in organizing tasks (PT2), technical problem-solving (CS1), and collaborative leadership (PT5, PS6). You thrive when overseeing projects from planning to execution, balancing both engineering detail and project goals."
+	},
+
+	"Project Manager":{
+		"image":	"assets/Project Manager.png",
+		"desc":		"You demonstrate strategic planning abilities (PT2), professional initiative (PS1), and strong people skills (PT5). Your logical thinking (PT1) and time management (PS5) make you a natural at coordinating timelines, teams, and resources effectively."
+	},
+
+	"QA/QC or Quality & Reliability Engineering Staff/Engineer":{
+		"image":	"assets/Quality & Reliability Engineering Engineer.png",
+		"desc":		"You're methodical (PT2), logical (PT1), and skilled in problem-solving (CS1) and root cause analysis (CS5). You’re ideal for ensuring reliability standards and improving quality across products or systems."
+	},
+
+	
+	"Safety Department Staff/Engineer":{
+		"image":	"assets/Safety Engineer.png",
+		"desc":		"You care deeply about precision and protocols (PS4), and your analytical mindset (PT1) supports risk assessments. With a strong sense of responsibility (PS3) and clarity in communication (PT5), you're well-equipped to ensure safety compliance and workplace wellbeing."
+	},
+
+	"Service Delivery Manager / Application Lead":{
+		"image":	"assets/Service Delivery Manager.png",
+		"desc":		"Your responses show strong leadership skills (PS6), attention to detail (PS4), and a preference for structured planning (PT2). You thrive in collaborative environments (PT5), take initiative (PS1), and enjoy using data to make decisions (PT1, PT6). Your ability to learn through real-world case studies (LP6) and lead strategic improvements makes you an excellent fit to lead application teams and manage client service performance."
+	},
+
+	"Shop Engineer":{
+		"image":	"assets/Shop Engineer.png",
+		"desc":		"You prefer hands-on learning (LP1) and are confident in physical coordination tasks (CS2). Your strengths in structured workflows (PT2) and identifying inefficiencies (CS5) help you solve production-floor problems effectively. You also show resilience in dynamic environments (PT3, PS3), making you well-suited to manage fast-paced shop operations."
+	},
+
+	"Supply Chain Management Staff/Engineer":{
+		"image":	"assets/Supply Chain Management Engineer.png",
+		"desc":		"Your questionnaire responses show high ability in pattern recognition and data analysis (CS6, PT1) and problem-solving (CS1, CS5). You prefer technology-driven and applied learning (LP5, LP6) and are skilled at multitasking (PS5). These strengths align well with optimizing inventory, logistics, and supply systems in real-time, collaborative environments (PT5, CS3)."
+	},
+
+	"Warehouse Staff Engineer":{
+		"image":	"assets/Warehouse Staff Engineer.png",
+		"desc":		"You are highly detail-oriented (PS4) and prefer structured, organized processes (PT2, LP3). Your hands-on learning (LP1) and physical coordination skills (CS2) make you ideal for managing warehouse layouts, tracking inventory, and ensuring operational accuracy. Your ability to work independently (CS4) also fits the role's routine optimization needs."
+	},
+
+	"Work Design & Measurement Staff/Engineer":{
+		"image":	"assets/Work Design & Measurement Staff_Engineer.png",
+		"desc":		"You are analytical (PT1, CS1), detail-focused (PS4), and skilled at recognizing system inefficiencies (CS5). Your responses show you prefer real-world learning (LP6) and enjoy collaborating to improve processes (PT5). This makes you ideal for evaluating task performance, improving workflows, and driving productivity improvements in organizations."
+	},
+}
+
+st.set_page_config(page_title="Step 6 - Prediction", page_icon="💼", layout="centered")
+
+with st.sidebar:
+    st.image("ALPHA.png", width=120)
+    st.markdown("### Step 6 of 6")
+    st.sidebar.progress(6 / 6)
+
+st.title("🔮 Your Career Path Recommendations")
+
+# Load the model and encoders
+model = joblib.load('job_predictor_model.pkl')
+label_encoders = joblib.load('label_encoders.pkl')
+
+if 'answers' in st.session_state and 'demographics' in st.session_state:
+    # Combine demographic and answer data
+    demo = st.session_state['demographics']
+    answers = st.session_state['answers']
+
+    # Encode demographics
+    input_df = pd.DataFrame([{
+        'Age': demo['Age'],
+        'Gender': label_encoders['Gender'].transform([demo['Gender']])[0],
+        'EDUCATION': label_encoders['EDUCATION'].transform([demo['EDUCATION']])[0],
+        **answers
+    }])
+
+    # Predict top 3 jobs
+    probs = model.predict_proba(input_df)[0]
+    top3_indices = probs.argsort()[-3:][::-1]
+    top3_jobs = label_encoders['JOB'].inverse_transform(top3_indices)
+
+    st.subheader("🔝 Top 3 Career Path Matches")
+    for i, idx in enumerate(top3_indices):
+        job_title = top3_jobs[i]
+        confidence = probs[idx] * 100
+
+        st.markdown(f"### {i+1}. **{job_title}**")
+
+        if job_title in job_assets:
+            st.image(job_assets[job_title]["image"], width=200)
+            st.markdown(f"_{job_assets[job_title]['desc']}_")
+
+
+else:
+    st.error("Please complete all steps before this page.")

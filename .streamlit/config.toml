@@ -1,0 +1,7 @@
+[theme]
+base = "light"
+primaryColor = "#007E0E"        # Bright Green
+backgroundColor = "#FFFFFF"   # White background
+secondaryBackgroundColor = "#F0F2F6"  # Light gray cards/sidebars
+textColor = "#000000"         # Black text
+font = "sans serif"
