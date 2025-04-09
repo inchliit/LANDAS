@@ -215,7 +215,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
 
     # --- Save to Google Sheet ---
     def save_to_gsheet(data):
-        credentials_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
+        credentials_dict = dict(st.secrets["GOOGLE_CREDENTIALS"])
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
         creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials_dict, scope)
         client = gspread.authorize(creds)
