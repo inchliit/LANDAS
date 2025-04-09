@@ -299,6 +299,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
             del st.session_state[key]
     st.success("Thank you! Redirecting you now...")
     time.sleep(1)  # Optional delay so user sees the message
+    st.markdown("**Start becoming significantly better. Check our free e-learning courses here.**")
     st.markdown('[🌐 Visit Our Website](https://www.asklexph.com)', unsafe_allow_html=True)
 
 else:
