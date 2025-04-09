@@ -294,9 +294,10 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
 
     # --- Auto-clear session (after export and save) ---
     if st.button("🚪 Exit and Start Again"):
-    for key in list(st.session_state.keys()):
-        del st.session_state[key]
-    st.rerun()
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        st.rerun()
+
 
 else:
     st.error("Please complete all steps before this page.")
