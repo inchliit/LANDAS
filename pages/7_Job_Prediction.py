@@ -5,6 +5,7 @@ import joblib
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
+import json
 
 job_assets = {	"Associate Software Engineer":{
 		"image":	"assets/Associate Software Engineer.png",
@@ -214,10 +215,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
 
     # --- Save to Google Sheet ---
     def save_to_gsheet(data):
-        import json
-	import gspread
-	from oauth2client.service_account import ServiceAccountCredentials
-	credentials_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
+       	credentials_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
 	scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 	creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials_dict, scope)
 	client = gspread.authorize(creds)
