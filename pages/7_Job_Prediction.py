@@ -213,6 +213,24 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
             st.image(job_assets[job_title]["image"], width=200)
             st.markdown(f"_{job_assets[job_title]['desc']}_")
 
+    # --- Structure data for saving ---
+    full_data = {
+        "Name": user_info["name"],
+        "Email": user_info["email"],
+        "University": user_info["university"],
+        "Goals": user_info["goals"],
+        "Age": demo["Age"],
+        "Gender": demo["Gender"],
+        "EDUCATION": demo["EDUCATION"],
+        **answers,
+        "P1": top3_jobs[0],
+        "C1": f"{probs[top3_indices[0]] * 100:.2f}%",
+        "P2": top3_jobs[1],
+        "C2": f"{probs[top3_indices[1]] * 100:.2f}%",
+        "P3": top3_jobs[2],
+        "C3": f"{probs[top3_indices[2]] * 100:.2f}%"
+    }
+
     # --- Save to Google Sheet ---
     def save_to_gsheet(data):
         credentials_dict = dict(st.secrets["GOOGLE_CREDENTIALS"])
@@ -240,25 +258,13 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
         ]
         sheet.append_row(row)
 
+    try:
+        save_to_gsheet(full_data)
+        st.success("✅ Your results have been saved successfully to Google Sheets!")
+    except Exception as e:
+        st.error(f"❌ Error saving to Google Sheets: {e}")
 
-    # --- Structure data for saving ---
-    full_data = {
-        "Name": user_info["name"],
-        "Email": user_info["email"],
-        "University": user_info["university"],
-        "Goals": user_info["goals"],
-        "Age": demo["Age"],
-        "Gender": demo["Gender"],
-        "EDUCATION": demo["EDUCATION"],
-        **answers,
-        "P1": top3_jobs[0],
-        "C1": f"{probs[top3_indices[0]] * 100:.2f}%",
-        "P2": top3_jobs[1],
-        "C2": f"{probs[top3_indices[1]] * 100:.2f}%",
-        "P3": top3_jobs[2],
-        "C3": f"{probs[top3_indices[2]] * 100:.2f}%"
-    }
-        # --- Optional: Download Feature ---
+    # --- Optional: Download Feature ---
     st.markdown("---")
     st.subheader("⬇️ Export Your Results")
 
@@ -288,15 +294,9 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
 
     # --- Auto-clear session (after export and save) ---
     if st.button("🚪 Exit and Start Again"):
-        for key in st.session_state.keys():
+        for key in list(st.session_state.keys()):
             del st.session_state[key]
-        st.experimental_rerun()  # refresh app to go to first page
-
-    try:
-        save_to_gsheet(full_data)
-        st.success("✅ Your results have been saved successfully to Google Sheets!")
-    except Exception as e:
-        st.error(f"❌ Error saving to Google Sheets: {e}")
+        st.experimental_rerun()
 
 else:
     st.error("Please complete all steps before this page.")
