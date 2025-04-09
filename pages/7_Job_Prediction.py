@@ -258,6 +258,39 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
         "P3": top3_jobs[2],
         "C3": f"{probs[top3_indices[2]] * 100:.2f}%"
     }
+        # --- Optional: Download Feature ---
+    st.markdown("---")
+    st.subheader("⬇️ Export Your Results")
+
+    export_df = pd.DataFrame([{
+        "Name": user_info["name"],
+        "Email": user_info["email"],
+        "University": user_info["university"],
+        "Top Choice": top3_jobs[0],
+        "Confidence 1": f"{probs[top3_indices[0]] * 100:.2f}%",
+        "Second Choice": top3_jobs[1],
+        "Confidence 2": f"{probs[top3_indices[1]] * 100:.2f}%",
+        "Third Choice": top3_jobs[2],
+        "Confidence 3": f"{probs[top3_indices[2]] * 100:.2f}%"
+    }])
+
+    csv = export_df.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label="📥 Download My Results as CSV",
+        data=csv,
+        file_name='LANDAS_Results.csv',
+        mime='text/csv',
+    )
+
+    # --- Thank You Message ---
+    st.markdown("---")
+    st.success("🎉 Thank you for completing the assessment!")
+
+    # --- Auto-clear session (after export and save) ---
+    if st.button("🚪 Exit and Start Again"):
+        for key in st.session_state.keys():
+            del st.session_state[key]
+        st.experimental_rerun()  # refresh app to go to first page
 
     try:
         save_to_gsheet(full_data)
