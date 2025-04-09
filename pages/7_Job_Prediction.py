@@ -5,7 +5,8 @@ import joblib
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
-	"Associate Software Engineer":{
+
+job_assets = {	"Associate Software Engineer":{
 		"image":	"assets/Associate Software Engineer.png",
 		"desc":		"Your strong logical reasoning (PT1) and comfort with structured tasks (PT2) support your strength in coding and debugging. You prefer tech-based learning (LP5) and can work independently (CS4), making you ideal for developing and maintaining software systems with precision and focus."
 	},
