@@ -7,4 +7,3 @@ Pillow
 openpyxl
 gspread
 oauth2client
-json
