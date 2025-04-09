@@ -5,3 +5,5 @@ scikit-learn
 joblib
 Pillow
 openpyxl
+gspread
+oauth2client
