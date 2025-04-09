@@ -215,11 +215,11 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
 
     # --- Save to Google Sheet ---
     def save_to_gsheet(data):
-       	credentials_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
-	scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-	creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials_dict, scope)
-	client = gspread.authorize(creds)
-	sheet = client.open("LANDAS_Responses").worksheet("Responses")
+        credentials_dict = json.loads(st.secrets["GOOGLE_CREDENTIALS"])
+        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(credentials_dict, scope)
+        client = gspread.authorize(creds)
+        sheet = client.open("LANDAS_Responses").worksheet("Responses")
 
         row = [
             datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -239,6 +239,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
             data["P3"], data["C3"]
         ]
         sheet.append_row(row)
+
 
     # --- Structure data for saving ---
     full_data = {
