@@ -296,7 +296,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     # --- Auto-clear session (after export and save) ---
     if st.button("🚪 Exit and Go to Our Website"):
     	for key in list(st.session_state.keys()):
-        	del st.session_state[key]
+            del st.session_state[key]
         st.success("Thank you! Redirecting you now...")
         time.sleep(1)  # Optional delay so user sees the message
         st.markdown('[🌐 Visit Our Website](https://www.asklexph.com)', unsafe_allow_html=True)
