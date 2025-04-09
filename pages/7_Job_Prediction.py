@@ -290,7 +290,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     )
 
     # --- Thank You Message ---
-        st.markdown("---")
+    st.markdown("---")
         st.success("🎉 Thank you for completing the assessment!")
 
     # --- Auto-clear session (after export and save) ---
