@@ -18,10 +18,9 @@ university = st.text_input("University/College Name")
 goals = st.text_area("Describe your career goals")
 
 st.markdown("## 🧾 Demographic Info for Prediction")
-
 age = st.slider("Age", 18, 60, 25)
-gender = st.selectbox("Gender", ["Male", "Female", "Other"])
-education = st.selectbox("Education", ["Bachelor's Degree", "Masteral's Degree", "Doctorate Degree"])
+gender = st.selectbox("Gender", ["", "Male", "Female", "Other"])
+education = st.selectbox("Education", ["", "Bachelor's Degree", "Masteral's Degree", "Doctorate Degree"])
 
 # --- Navigation Buttons ---
 col1, col2 = st.columns([1, 1])
@@ -31,17 +30,24 @@ with col1:
 
 with col2:
     if st.button("Next →"):
-        # Store all user info
-        st.session_state['user_info'] = {
-            'name': f"{first_name} {last_name}",
-            'email': email,
-            'university': university,
-            'goals': goals
-        }
-        # Store demographic variables for prediction
-        st.session_state['demographics'] = {
-            'Age': age,
-            'Gender': gender,
-            'EDUCATION': education,
-        }
-        st.switch_page("pages/2_Personality Traits.py")
+        # Validate required fields
+        if not first_name or not last_name or not email:
+            st.warning("⚠️ Please complete your full name and email address.")
+        elif "@" not in email or "." not in email:
+            st.warning("⚠️ Please enter a valid email address.")
+        elif gender == "" or education == "":
+            st.warning("⚠️ Please complete all demographic information.")
+        else:
+            st.session_state['user_info'] = {
+                'name': f"{first_name.strip().title()} {last_name.strip().title()}",
+                'email': email.strip(),
+                'university': university.strip(),
+                'goals': goals.strip()
+            }
+            st.session_state['demographics'] = {
+                'Age': age,
+                'Gender': gender,
+                'EDUCATION': education
+            }
+            st.success("✅ Information saved successfully!")
+            st.switch_page("pages/2_Personality Traits.py")
