@@ -290,8 +290,8 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     )
 
     # --- Thank You Message ---
-    st.markdown("---")
-    st.success("🎉 Thank you for completing the assessment!")
+        st.markdown("---")
+        st.success("🎉 Thank you for completing the assessment!")
 
     # --- Auto-clear session (after export and save) ---
     if st.button("🚪 Exit and Go to Our Website"):
