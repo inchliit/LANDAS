@@ -58,3 +58,43 @@ st.markdown("""
     All personal data will be used solely for career recommendation purposes and will not be shared with third parties.
 </div>
 """, unsafe_allow_html=True)
+
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+import datetime
+
+def append_to_gsheet(data: dict):
+    # Define scope
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+
+    # Auth
+    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+    client = gspread.authorize(creds)
+
+    # Open sheet
+    sheet = client.open("LANDAS_Responses").worksheet("Responses")  # replace with your actual sheet name
+
+    # Convert dict to ordered list matching your headers
+    row = [
+        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        data['Name'],
+        data['Email'],
+        data['University'],
+        data['Goals'],
+        data['Age'],
+        data['Gender'],
+        data['EDUCATION'],
+        *[data.get(f"PT{i}", "") for i in range(1, 7)],
+        *[data.get(f"LP{i}", "") for i in range(1, 7)],
+        *[data.get(f"CS{i}", "") for i in range(1, 7)],
+        *[data.get(f"PS{i}", "") for i in range(1, 7)],
+        data.get("P1", ""),
+        data.get("C1", ""),
+        data.get("P2", ""),
+        data.get("C2", ""),
+        data.get("P3", ""),
+        data.get("C3", ""),
+    ]
+
+    # Append row to sheet
+    sheet.append_row(row)
