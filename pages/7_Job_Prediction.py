@@ -6,6 +6,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import json
+import time
 
 job_assets = {	"Associate Software Engineer":{
 		"image":	"assets/Associate Software Engineer.png",
@@ -293,11 +294,12 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     st.success("🎉 Thank you for completing the assessment!")
 
     # --- Auto-clear session (after export and save) ---
-    if st.button("🚪 Exit and Start Again"):
-        for key in list(st.session_state.keys()):
-            del st.session_state[key]
-        st.rerun()
-
+    if st.button("🚪 Exit and Go to Our Website"):
+    	for key in list(st.session_state.keys()):
+        	del st.session_state[key]
+   	 st.success("Thank you! Redirecting you now...")
+    	time.sleep(1)  # Optional delay so user sees the message
+    	st.markdown('[🌐 Visit Our Website](https://www.asklexph.com)', unsafe_allow_html=True)
 
 else:
     st.error("Please complete all steps before this page.")
