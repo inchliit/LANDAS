@@ -18,7 +18,7 @@ manual_images = [
 ]
 
 for img_path in manual_images:
-    st.image(img_path, use_column_width=True)
+    st.image(img_path, use_container_width=True)
     st.markdown("---")
 
 # Navigation buttons
