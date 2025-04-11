@@ -64,4 +64,7 @@ with col2:
         if 'answers' not in st.session_state:
             st.session_state['answers'] = {}
         st.session_state['answers'].update(pt_answers)
+	# ✅ This ensures PT1 exists in top-level session state for the sidebar
+        st.session_state['PT1'] = pt_answers['PT1']
+        
         st.switch_page("pages/3_Learning Preferences.py")

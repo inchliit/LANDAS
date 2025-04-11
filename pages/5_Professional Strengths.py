@@ -66,5 +66,9 @@ with col1:
         st.switch_page("pages/4_Cognitive Strengths.py")
 with col2:
     if st.button("Next →"):
+        if 'answers' not in st.session_state:
+            st.session_state['answers'] = {}
         st.session_state['answers'].update(ps_answers)
+        # ✅ Mark PS1 as complete at top-level for sidebar check
+        st.session_state['PS1'] = cs_answers['PS1']
         st.switch_page("pages/6_Evaluation.py")

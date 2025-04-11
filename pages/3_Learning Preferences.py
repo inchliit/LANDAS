@@ -65,4 +65,6 @@ with col2:
         if 'answers' not in st.session_state:
             st.session_state['answers'] = {}
         st.session_state['answers'].update(lp_answers)
+	# ✅ This ensures LP11 exists in top-level session state for the sidebar
+        st.session_state['LP1'] = pt_answers['LP1']
         st.switch_page("pages/4_Cognitive Strengths.py")

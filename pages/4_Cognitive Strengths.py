@@ -67,5 +67,11 @@ with col1:
 
 with col2:
     if st.button("Next →"):
+        if 'answers' not in st.session_state:
+            st.session_state['answers'] = {}
         st.session_state['answers'].update(cs_answers)
+
+        # ✅ Mark CS1 as complete at top-level for sidebar check
+        st.session_state['CS1'] = cs_answers['CS1']
+
         st.switch_page("pages/5_Professional Strengths.py")
