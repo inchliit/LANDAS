@@ -174,7 +174,27 @@ st.set_page_config(page_title="Section 7 - Prediction", page_icon="💼", layout
 with st.sidebar:
     st.image("ALPHA.png", width=120)
     st.markdown("### Section 7 of 7")
-    st.sidebar.progress(7 / 7)
+    def check_icon(key):
+        return "✅" if key in st.session_state else "⬜️"
+
+    st.markdown(f"{check_icon('user_info')} Step 1: Personal Info")
+    st.markdown(f"{check_icon('PT1')} Step 2: Personality Traits")
+    st.markdown(f"{check_icon('LP1')} Step 3: Learning Preferences")
+    st.markdown(f"{check_icon('CS1')} Step 4: Cognitive Strengths")
+    st.markdown(f"{check_icon('PS1')} Step 5: Professional Strengths")
+    st.markdown(f"{check_icon('evaluation_rating')} Step 6: Evaluation")
+    st.markdown(f"{check_icon('P1')} Step 7: Prediction")
+
+    total = sum([
+        'user_info' in st.session_state,
+        'PT1' in st.session_state,
+        'LP1' in st.session_state,
+        'CS1' in st.session_state,
+        'PS1' in st.session_state,
+        'evaluation_rating' in st.session_state,
+        'P1' in st.session_state
+    ])
+    st.progress(total / 7)
 
 st.title("🔮 Your Career Path Recommendations")
 
