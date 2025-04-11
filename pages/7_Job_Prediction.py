@@ -192,7 +192,7 @@ with st.sidebar:
         'CS1' in st.session_state,
         'PS1' in st.session_state,
         'evaluation_rating' in st.session_state,
-        'P1' in st.session_state
+        'evaluation_rating' in st.session_state
     ])
     st.progress(total / 7)
 
