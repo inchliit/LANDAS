@@ -253,6 +253,8 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
         "C2": f"{probs[top3_indices[1]] * 100:.2f}%",
         "P3": top3_jobs[2],
         "C3": f"{probs[top3_indices[2]] * 100:.2f}%"
+        "Feedback": st.session_state.get("feedback", ""),
+        "Rating": st.session_state.get("evaluation_rating", "")
     }
 
     # --- Save to Google Sheet ---
@@ -279,8 +281,8 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
             data["P1"], data["C1"],
             data["P2"], data["C2"],
             data["P3"], data["C3"],
-            data.get["Feedback",""], 
-            data.get["Rating",""]
+            data["Feedback"], 
+            data["Rating"]
 
         ]
         sheet.append_row(row)
