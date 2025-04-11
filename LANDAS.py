@@ -47,7 +47,7 @@ Click the button below to begin your journey.
 
 # --- Start Button ---
 if st.button("🚀 Begin Assessment"):
-    st.switch_page("pages/1_User_Info.py")
+    st.switch_page("Ops Manual.py")
 
 # --- Footer with Data Privacy Disclaimer ---
 st.markdown("""

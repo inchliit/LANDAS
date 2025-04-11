@@ -197,6 +197,9 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
         "Gender": label_encoders["Gender"].transform([demo["Gender"]])[0],
         "EDUCATION": label_encoders["EDUCATION"].transform([demo["EDUCATION"]])[0],
         **answers
+        "Feedback": st.session_state.get("feedback", ""),
+        "Rating": st.session_state.get("evaluation_rating", "")
+
     }])
     input_df = input_df[expected_features]  # reorder columns
 
@@ -255,7 +258,10 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
             *[data.get(f"PS{i}", "") for i in range(1, 7)],
             data["P1"], data["C1"],
             data["P2"], data["C2"],
-            data["P3"], data["C3"]
+            data["P3"], data["C3"],
+            data["Feedback"], 
+            data["Rating"]
+
         ]
         sheet.append_row(row)
 

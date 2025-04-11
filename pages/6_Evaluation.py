@@ -20,7 +20,8 @@ Please rate your experience below:
 # Star rating (1–5)
 rating = st.slider("How would you rate your experience?", 1, 5, 4, format="%d ⭐")
 
-st.text_area("Any feedback or suggestions?", key="feedback")
+# Text input for feedback
+feedback = st.text_area("Any feedback or suggestions?")
 
 # Navigation
 col1, col2 = st.columns([1, 1])
@@ -31,4 +32,5 @@ with col1:
 with col2:
     if st.button("See My Career Path →"):
         st.session_state['evaluation_rating'] = rating
+        st.session_state['feedback'] = feedback  # ✅ this is key
         st.switch_page("pages/7_Job_Prediction.py")
