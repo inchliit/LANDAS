@@ -38,7 +38,12 @@ university = st.text_input("University/College Name")
 goals = st.text_area("Describe your career goals")
 
 st.markdown("## 🧾 Demographic Info for Prediction")
-age = st.slider("Age", 18, 60, 25)
+age_input = st.text_input("Age (18–60)", "")
+age_input = st.text_input("Age (18–60)", "").strip()
+if age_input.isdigit() and 18 <= int(age_input) <= 60:
+    age = int(age_input)
+else:
+    age = None
 gender = st.selectbox("Gender", ["", "Male", "Female", "Other"])
 education = st.selectbox("Education", ["", "Bachelor's Degree", "Masteral's Degree", "Doctorate Degree"])
 
@@ -55,8 +60,9 @@ with col2:
             st.warning("⚠️ Please complete your full name and email address.")
         elif "@" not in email or "." not in email:
             st.warning("⚠️ Please enter a valid email address.")
-        elif gender == "" or education == "":
-            st.warning("⚠️ Please complete all demographic information.")
+        elif gender == "" or education == "" or age is None:
+            st.warning("⚠️ Please complete all demographic information, including a valid age (18–60).")
+
         else:
             st.session_state['user_info'] = {
                 'name': f"{first_name.strip().title()} {last_name.strip().title()}",

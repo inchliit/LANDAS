@@ -36,6 +36,9 @@ The Learning Preferences section explores the ways in which individuals acquire 
 </div>
 """, unsafe_allow_html=True)
 
+# Show the Likert Scale reference image
+st.image("Likert_Scale.png", use_container_width=True)
+
 # Add vertical space before the first slider
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -48,6 +51,15 @@ lp_questions = {
     "LP5": "I enjoy using technology, software, and simulations for learning.",
     "LP6": "I prefer learning through real-world case studies and industry applications."
 }
+
+# --- Custom CSS to increase slider number font size ---
+st.markdown("""
+<style>
+.css-1emrehy.edgvbvh3 {   /* numeric label */
+    font-size: 20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # Collect answers via sliders
 lp_answers = {}

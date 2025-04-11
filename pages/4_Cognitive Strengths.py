@@ -41,6 +41,9 @@ Cognitive strengths are critical in industrial engineering, where analytical thi
 </div>
 """, unsafe_allow_html=True)
 
+# Show the Likert Scale reference image
+st.image("Likert_Scale.png", use_container_width=True)
+
 # ✅ Space before first question
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -53,6 +56,15 @@ cs_questions = {
     "CS5": "I quickly identify inefficiencies in systems and processes.",
     "CS6": "I am skilled at recognizing patterns and trends in complex data."
 }
+
+# --- Custom CSS to increase slider number font size ---
+st.markdown("""
+<style>
+.css-1emrehy.edgvbvh3 {   /* numeric label */
+    font-size: 20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # Slider collection
 cs_answers = {}

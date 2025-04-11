@@ -35,6 +35,10 @@ st.markdown("""
 This section evaluates how individuals approach their work, make decisions, and interact with their professional environment. Understanding personality traits such as logical reasoning, collaboration, and adaptability is crucial in determining an individual's preferred work style and the types of roles they may excel in.
 </div>
 """, unsafe_allow_html=True)
+
+# Show the Likert Scale reference image
+st.image("Likert_Scale.png", use_container_width=True)
+
 # Add vertical space before the first slider
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -47,6 +51,15 @@ pt_questions = {
     "PT5": "I thrive in collaborative settings and prefer working with people to achieve goals.",
     "PT6": "I feel most confident when making decisions based on factual data rather than intuition."
 }
+
+# --- Custom CSS to increase slider number font size ---
+st.markdown("""
+<style>
+.css-1emrehy.edgvbvh3 {   /* numeric label */
+    font-size: 20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # Collect answers via sliders
 pt_answers = {}

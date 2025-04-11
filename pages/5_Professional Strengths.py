@@ -41,6 +41,9 @@ This section measures work-related strengths, leadership potential, and professi
 </div>
 """, unsafe_allow_html=True)
 
+# Show the Likert Scale reference image
+st.image("Likert_Scale.png", use_container_width=True)
+
 # ✅ Space before first slider
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -53,6 +56,15 @@ ps_questions = {
     "PS5": "I am skilled in managing multiple tasks and meeting deadlines efficiently.",
     "PS6": "I enjoy leading teams, making strategic decisions, and improving systems."
 }
+
+# --- Custom CSS to increase slider number font size ---
+st.markdown("""
+<style>
+.css-1emrehy.edgvbvh3 {   /* numeric label */
+    font-size: 20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ✅ Capture answers
 ps_answers = {}
