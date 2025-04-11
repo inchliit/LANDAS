@@ -229,7 +229,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     top3_jobs = label_encoders["JOB"].inverse_transform(top3_indices)
 
     # ✅ Set session state so sidebar shows ✅ for Prediction
-    st.session_state['P1'] = top3_jobs[0]  # << ADD THIS LINE
+    st.session_state['P1'] = top3_jobs[0] 
 
     st.subheader("🔝 Top 3 Career Path Matches")
     for i, idx in enumerate(top3_indices):
@@ -333,7 +333,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
             del st.session_state[key]
         st.success("Thank you! Redirecting you now...")
         time.sleep(1)
-        st.switch_page("streamlit_app.py")  # Redirect to homepage
+        st.switch_page("LANDAS.py")  # Redirect to homepage
     
     st.markdown("**Start becoming #significantlybetter. Check our free e-learning courses here.**")
     st.markdown('[🌐 Visit Our Website](https://www.asklexph.com)', unsafe_allow_html=True)
