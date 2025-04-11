@@ -8,13 +8,13 @@ with st.sidebar:
     def check_icon(key):
         return "✅" if key in st.session_state else "⬜️"
 
-    st.markdown(f"{check_icon('user_info')} Step 1: Personal Info")
-    st.markdown(f"{check_icon('PT1')} Step 2: Personality Traits")
-    st.markdown(f"{check_icon('LP1')} Step 3: Learning Preferences")
-    st.markdown(f"{check_icon('CS1')} Step 4: Cognitive Strengths")
-    st.markdown(f"{check_icon('PS1')} Step 5: Professional Strengths")
-    st.markdown(f"{check_icon('evaluation_rating')} Step 6: Evaluation")
-    st.markdown(f"{check_icon('P1')} Step 7: Prediction")
+    st.markdown(f"{check_icon('user_info')} Section 1: Personal Info")
+    st.markdown(f"{check_icon('PT1')} Section 2: Personality Traits")
+    st.markdown(f"{check_icon('LP1')} Section 3: Learning Preferences")
+    st.markdown(f"{check_icon('CS1')} Section 4: Cognitive Strengths")
+    st.markdown(f"{check_icon('PS1')} Section 5: Professional Strengths")
+    st.markdown(f"{check_icon('evaluation_rating')} Section 6: Evaluation")
+    st.markdown(f"{check_icon('P1')} Section 7: Prediction")
 
     total = sum([
         'user_info' in st.session_state,

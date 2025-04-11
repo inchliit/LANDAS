@@ -279,8 +279,8 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
             data["P1"], data["C1"],
             data["P2"], data["C2"],
             data["P3"], data["C3"],
-            data["Feedback"], 
-            data["Rating"]
+            data.get["Feedback",""], 
+            data.get["Rating",""]
 
         ]
         sheet.append_row(row)
