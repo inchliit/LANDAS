@@ -5,3 +5,13 @@ backgroundColor = "#FFFFFF"   # White background
 secondaryBackgroundColor = "#F0F2F6"  # Light gray cards/sidebars
 textColor = "#000000"         # Black text
 font = "sans serif"
+
+# .streamlit/config.toml
+[theme]
+base="light"
+
+[server]
+runOnSave = true
+
+[ui]
+hide_sidebar_nav = true  # ✅ This hides the built-in page list
