@@ -10,5 +10,5 @@ font = "sans serif"
 [server]
 runOnSave = true
 
-[ui]
-hide_sidebar_nav = true  # ✅ This hides the built-in page list
+[client]
+showSidebarNavigation = false
