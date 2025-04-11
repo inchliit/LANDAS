@@ -28,7 +28,7 @@ with st.sidebar:
     ])
     st.progress(total / 7)
 
-st.header("Section 1: Personality Traits")
+st.header("Section 2: Personality Traits")
 
 st.markdown("""
 <div style='text-align: justify'>

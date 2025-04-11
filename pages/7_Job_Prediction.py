@@ -216,7 +216,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
         "Age": demo["Age"],
         "Gender": label_encoders["Gender"].transform([demo["Gender"]])[0],
         "EDUCATION": label_encoders["EDUCATION"].transform([demo["EDUCATION"]])[0],
-        **answers
+        **answers,
         "Feedback": st.session_state.get("feedback", ""),
         "Rating": st.session_state.get("evaluation_rating", "")
 

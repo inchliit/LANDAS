@@ -27,7 +27,7 @@ with st.sidebar:
     ])
     st.progress(total / 7)
 
-st.title("Step 1: Personal Information")
+st.title("Section 1: Personal Information")
 
 # Personal info
 col1, col2 = st.columns(2)
