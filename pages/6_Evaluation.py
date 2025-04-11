@@ -15,7 +15,7 @@ with st.sidebar:
     st.markdown(f"{check_icon('CS1')} Step 4: Cognitive Strengths")
     st.markdown(f"{check_icon('PS1')} Step 5: Professional Strengths")
     st.markdown(f"{check_icon('evaluation_rating')} Step 6: Evaluation")
-    st.markdown(f"{check_icon('P1')} Step 7: Prediction")
+    st.markdown(f"{check_icon('evaluation_rating')} Step 7: Prediction")
 
     total = sum([
         'user_info' in st.session_state,

@@ -169,6 +169,33 @@ job_assets = {	"Associate Software Engineer":{
 
 # --- Page Config ---
 st.set_page_config(page_title="Section 7 - Prediction", page_icon="💼", layout="centered")
+
+# --- Sidebar ---
+with st.sidebar:
+    st.image("ALPHA.png", width=120)
+    st.markdown("### Section 7 of 7")
+    def check_icon(key):
+        return "✅" if key in st.session_state else "⬜️"
+
+    st.markdown(f"{check_icon('user_info')} Step 1: Personal Info")
+    st.markdown(f"{check_icon('PT1')} Step 2: Personality Traits")
+    st.markdown(f"{check_icon('LP1')} Step 3: Learning Preferences")
+    st.markdown(f"{check_icon('CS1')} Step 4: Cognitive Strengths")
+    st.markdown(f"{check_icon('PS1')} Step 5: Professional Strengths")
+    st.markdown(f"{check_icon('evaluation_rating')} Step 6: Evaluation")
+    st.markdown(f"{check_icon('P1')} Step 7: Prediction")
+
+    total = sum([
+        'user_info' in st.session_state,
+        'PT1' in st.session_state,
+        'LP1' in st.session_state,
+        'CS1' in st.session_state,
+        'PS1' in st.session_state,
+        'evaluation_rating' in st.session_state,
+        'P1' in st.session_state
+    ])
+    st.progress(total / 7)
+
 st.title("🔮 Your Career Path Recommendations")
 
 # --- Load model, encoders, and feature order ---
@@ -201,9 +228,6 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     top3_indices = probs.argsort()[-3:][::-1]
     top3_jobs = label_encoders["JOB"].inverse_transform(top3_indices)
 
-    # ✅ Set session state so sidebar shows ✅ for Prediction
-    st.session_state['P1'] = top3_jobs[0] 
-
     st.subheader("🔝 Top 3 Career Path Matches")
     for i, idx in enumerate(top3_indices):
         job_title = top3_jobs[i]
@@ -212,31 +236,6 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
         if job_title in job_assets:
             st.image(job_assets[job_title]["image"], width=200)
             st.markdown(f"_{job_assets[job_title]['desc']}_")
-# --- Sidebar ---
-with st.sidebar:
-    st.image("ALPHA.png", width=120)
-    st.markdown("### Section 7 of 7")
-    def check_icon(key):
-        return "✅" if key in st.session_state else "⬜️"
-
-    st.markdown(f"{check_icon('user_info')} Step 1: Personal Info")
-    st.markdown(f"{check_icon('PT1')} Step 2: Personality Traits")
-    st.markdown(f"{check_icon('LP1')} Step 3: Learning Preferences")
-    st.markdown(f"{check_icon('CS1')} Step 4: Cognitive Strengths")
-    st.markdown(f"{check_icon('PS1')} Step 5: Professional Strengths")
-    st.markdown(f"{check_icon('evaluation_rating')} Step 6: Evaluation")
-    st.markdown(f"{check_icon('P1')} Step 7: Prediction")
-
-    total = sum([
-        'user_info' in st.session_state,
-        'PT1' in st.session_state,
-        'LP1' in st.session_state,
-        'CS1' in st.session_state,
-        'PS1' in st.session_state,
-        'evaluation_rating' in st.session_state,
-        'P1' in st.session_state
-    ])
-    st.progress(total / 7)
 
     # --- Structure data for saving ---
     full_data = {
