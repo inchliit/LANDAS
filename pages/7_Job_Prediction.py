@@ -233,7 +233,7 @@ with st.sidebar:
 st.title("🔮 Your Career Path Recommendations")
  
 
-    st.subheader("🔝 Top 3 Career Path Matches")
+st.subheader("🔝 Top 3 Career Path Matches")
     for i, idx in enumerate(top3_indices):
         job_title = top3_jobs[i]
         confidence = probs[idx] * 100
