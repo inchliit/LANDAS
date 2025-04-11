@@ -38,7 +38,6 @@ university = st.text_input("University/College Name")
 goals = st.text_area("Describe your career goals")
 
 st.markdown("## 🧾 Demographic Info for Prediction")
-age_input = st.text_input("Age (18–60)", "")
 age_input = st.text_input("Age (18–60)", "").strip()
 if age_input.isdigit() and 18 <= int(age_input) <= 60:
     age = int(age_input)
