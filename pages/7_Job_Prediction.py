@@ -228,6 +228,9 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     top3_indices = probs.argsort()[-3:][::-1]
     top3_jobs = label_encoders["JOB"].inverse_transform(top3_indices)
 
+    # ✅ Set session state so sidebar shows ✅ for Prediction
+    st.session_state['P1'] = top3_jobs[0]  # << ADD THIS LINE
+
     st.subheader("🔝 Top 3 Career Path Matches")
     for i, idx in enumerate(top3_indices):
         job_title = top3_jobs[i]
@@ -292,6 +295,9 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
         st.success("✅ Your results have been saved successfully to Google Sheets!")
     except Exception as e:
         st.error(f"❌ Error saving to Google Sheets: {e}")
+        st.markdown("If you're seeing this in error, try returning to the homepage to restart.")
+        if st.button("🏠 Back to Homepage"):
+            st.switch_page("LANDAS.py")
 
     # --- Optional: Download Feature ---
     st.markdown("---")
@@ -322,13 +328,19 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     st.success("🎉 Thank you for completing the assessment!")
 
     # --- Auto-clear session (after export and save) ---
-    if st.button("🚪 Exit and Go to Our Website"):
-    	for key in list(st.session_state.keys()):
+    if st.button("🏠 Back to Homepage"):
+        for key in list(st.session_state.keys()):
             del st.session_state[key]
-    st.success("Thank you! Redirecting you now...")
-    time.sleep(1)  # Optional delay so user sees the message
+        st.success("Thank you! Redirecting you now...")
+        time.sleep(1)
+        st.switch_page("streamlit_app.py")  # Redirect to homepage
+    
     st.markdown("**Start becoming #significantlybetter. Check our free e-learning courses here.**")
     st.markdown('[🌐 Visit Our Website](https://www.asklexph.com)', unsafe_allow_html=True)
 
 else:
-    st.error("Please complete all steps before this page.")
+    st.error("❗ Please complete all steps before this page.")
+    st.markdown("If you're seeing this in error, try returning to the homepage to restart.")
+
+    if st.button("🏠 Back to Homepage"):
+        st.switch_page("LANDAS.py")
