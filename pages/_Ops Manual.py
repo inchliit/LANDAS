@@ -29,4 +29,4 @@ with col1:
 
 with col2:
     if st.button("✅ Got it! Proceed to Start"):
-        st.switch_page("pages/1_User Info.py")
+        st.switch_page("pages/1_User_Info.py")
