@@ -252,7 +252,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
         "P2": top3_jobs[1],
         "C2": f"{probs[top3_indices[1]] * 100:.2f}%",
         "P3": top3_jobs[2],
-        "C3": f"{probs[top3_indices[2]] * 100:.2f}%"
+        "C3": f"{probs[top3_indices[2]] * 100:.2f}%",
         "Feedback": st.session_state.get("feedback", ""),
         "Rating": st.session_state.get("evaluation_rating", "")
     }
