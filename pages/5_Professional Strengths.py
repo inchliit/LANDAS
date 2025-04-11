@@ -70,5 +70,5 @@ with col2:
             st.session_state['answers'] = {}
         st.session_state['answers'].update(ps_answers)
         # ✅ Mark PS1 as complete at top-level for sidebar check
-        st.session_state['PS1'] = cs_answers['PS1']
+        st.session_state['PS1'] = ps_answers['PS1']
         st.switch_page("pages/6_Evaluation.py")
