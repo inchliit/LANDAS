@@ -42,7 +42,7 @@ Cognitive strengths are critical in industrial engineering, where analytical thi
 """, unsafe_allow_html=True)
 
 # Show the Likert Scale reference image
-st.image("Likert_Scale.png", use_container_width=True)
+st.image("assets/Likert_Scale.png", use_container_width=True)
 
 # ✅ Space before first question
 st.markdown("<br>", unsafe_allow_html=True)
