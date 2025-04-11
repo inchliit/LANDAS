@@ -26,7 +26,7 @@ education = st.selectbox("Education", ["", "Bachelor's Degree", "Masteral's Degr
 col1, col2 = st.columns([1, 1])
 with col1:
     if st.button("← Back"):
-        st.switch_page("pages/_Ops Manual.py")
+        st.switch_page("pages/_Ops_Manual.py")
 
 with col2:
     if st.button("Next →"):
