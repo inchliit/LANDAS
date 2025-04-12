@@ -82,7 +82,10 @@ pt_questions = {
 pt_answers = {}
 for key, question in pt_questions.items():
     pt_answers[key] = st.slider(f"**{key}: {question}**", 1, 5, 1, step=1)
-    st.markdown("<div style='text-align:center; font-family:monospace; font-size:18px;'>1  2  3  4  5</div>", unsafe_allow_html=True)
+    st.markdown("""
+<div style='text-align:center; font-size:16px; font-family:monospace; letter-spacing: 30px; margin-top: -10px;'>1 2 3 4 5</div>
+""", unsafe_allow_html=True)
+
 
 # --- Navigation Buttons ---
 col1, col2 = st.columns([1, 1])
