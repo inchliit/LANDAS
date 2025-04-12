@@ -38,7 +38,7 @@ Please rate your experience below:
 """, unsafe_allow_html=True)
 
 # Star rating (1–5)
-rating = st.slider("How would you rate your experience?", 1, 5, 4, format="%d ⭐")
+rating = st.slider("How would you rate your experience?", 1, 5, 1, format="%d ⭐")
 
 # Text input for feedback
 feedback = st.text_area("Any feedback or suggestions?")

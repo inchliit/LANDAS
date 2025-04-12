@@ -66,10 +66,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Slider collection
-cs_answers = {}
-for key, question in cs_questions.items():
-    cs_answers[key] = st.slider(f"{key}: {question}", 1, 5, 3)
+# Collect answers via sliders
+pt_answers = {}
+for key, question in pt_questions.items():
+    pt_answers[key] = st.slider(f"**{key}: {question}**", 1, 5, 1,step = 1)
 
 # ✅ Buttons for navigation
 col1, col2 = st.columns([1, 1])
