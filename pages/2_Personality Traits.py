@@ -3,12 +3,14 @@ import streamlit as st
 
 st.set_page_config(page_title="Step 2 - PT", page_icon="💼", layout="centered")
 
+# --- Sidebar Progress ---
 with st.sidebar:
     st.image("ALPHA.png", width=120)
     st.markdown("### Step 2 of 6")
+    
     def check_icon(key):
         return "✅" if key in st.session_state else "⬜️"
-
+    
     st.markdown(f"{check_icon('user_info')} Step 1: Personal Info")
     st.markdown(f"{check_icon('PT1')} Step 2: Personality Traits")
     st.markdown(f"{check_icon('LP1')} Step 3: Learning Preferences")
@@ -28,6 +30,7 @@ with st.sidebar:
     ])
     st.progress(total / 7)
 
+# --- Section Header and Description ---
 st.header("Section 2: Personality Traits")
 
 st.markdown("""
@@ -36,13 +39,36 @@ This section evaluates how individuals approach their work, make decisions, and 
 </div>
 """, unsafe_allow_html=True)
 
-# Show the Likert Scale reference image
+# --- Likert Reference Image ---
 st.image("assets/Likert_Scale.png", use_container_width=True)
 
-# Add vertical space before the first slider
-st.markdown("<br>", unsafe_allow_html=True)
+# --- Slider Enhancements: CSS ---
+st.markdown("""
+<style>
+/* Slider Thumb (dot) */
+[data-baseweb="slider"] > div > div > div[role="slider"] {
+    background-color: green !important;
+    border: 2px solid black !important;
+    height: 18px !important;
+    width: 18px !important;
+    margin-top: -6px;
+}
+/* Filled track */
+[data-baseweb="slider"] > div > div > div[role="slider"] ~ div {
+    background-color: green !important;
+}
+/* Slider height */
+[data-baseweb="slider"] > div > div {
+    height: 6px !important;
+}
+/* Font size of value */
+.css-1emrehy.edgvbvh3 {
+    font-size: 20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# Define PT questions with descriptions
+# --- PT Questions ---
 pt_questions = {
     "PT1": "I enjoy analyzing data and making logical decisions.",
     "PT2": "I prefer structured plans and organized processes over spontaneous decisions.",
@@ -52,23 +78,13 @@ pt_questions = {
     "PT6": "I feel most confident when making decisions based on factual data rather than intuition."
 }
 
-# --- Custom CSS to increase slider number font size ---
-st.markdown("""
-<style>
-.css-1emrehy.edgvbvh3 {   /* numeric label */
-    font-size: 20px !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Collect answers via sliders
+# --- Collect answers ---
 pt_answers = {}
 for key, question in pt_questions.items():
-    pt_answers[key] = st.slider(f"**{key}: {question}**", 1, 5, 1,step = 1)
-    st.markdown("<div style='text-align:center; font-family: monospace;'>1  2  3  4  5</div>", unsafe_allow_html=True)
+    pt_answers[key] = st.slider(f"**{key}: {question}**", 1, 5, 1, step=1)
+    st.markdown("<div style='text-align:center; font-family:monospace; font-size:18px;'>1  2  3  4  5</div>", unsafe_allow_html=True)
 
-
-# Navigation Buttons
+# --- Navigation Buttons ---
 col1, col2 = st.columns([1, 1])
 with col1:
     if st.button("← Back"):
@@ -79,7 +95,5 @@ with col2:
         if 'answers' not in st.session_state:
             st.session_state['answers'] = {}
         st.session_state['answers'].update(pt_answers)
-	# ✅ This ensures PT1 exists in top-level session state for the sidebar
-        st.session_state['PT1'] = pt_answers['PT1']
-        
+        st.session_state['PT1'] = pt_answers['PT1']  # For sidebar ✅ check
         st.switch_page("pages/3_Learning Preferences.py")
