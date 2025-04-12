@@ -47,7 +47,7 @@ feedback = st.text_area("Any feedback or suggestions?")
 col1, col2 = st.columns([1, 1])
 with col1:
     if st.button("← Back"):
-        st.switch_page("pages/5_Professional Strengthspy")
+        st.switch_page("pages/5_Professional Strengths.py")
 
 with col2:
     if st.button("See My Career Path →"):
