@@ -9,15 +9,14 @@ def check_access():
         st.session_state["admin_auth"] = False
 
     if not st.session_state["admin_auth"]:
-        st.title("🔐 Admin Access")
-        password = st.text_input("Enter Admin Password", type="password")
-        if password:
-            if password == "alphaadmin2024":  # 🔒 Replace with env var in production
-                st.session_state["admin_auth"] = True
-                st.success("✅ Access granted.")
-            else:
-                st.error("❌ Incorrect password. Try again.")
-        st.stop()
+        password = st.text_input("🔐 Enter Admin Password", type="password")
+        if password == "alphaadmin2024":
+            st.session_state["admin_auth"] = True
+            st.success("✅ Access granted.")
+            st.experimental_rerun()  # 👈 reruns the app to render the dashboard
+        else:
+            st.warning("Incorrect password." if password else "")
+            st.stop()
 
 check_access()
 
