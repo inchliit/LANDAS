@@ -4,7 +4,6 @@ import pandas as pd
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
-import base64
 
 st.set_page_config(page_title="Section 8 - Post Result Survey", page_icon="📝", layout="centered")
 
@@ -33,27 +32,8 @@ def save_post_feedback():
     ]
     sheet.append_row(row)
 
-
-# --- Optional: Download Feature ---
-st.markdown("---")
-st.subheader("⬇️ Export Your Results")
-
-export_df = pd.DataFrame([{
-    "Name": user_info["name"],
-    "Email": user_info["email"],
-    "University": user_info["university"],
-    "Top Choice": top3_jobs[0],
-    "Confidence 1": f"{probs[top3_indices[0]] * 100:.2f}%",
-    "Second Choice": top3_jobs[1],
-    "Confidence 2": f"{probs[top3_indices[1]] * 100:.2f}%",
-    "Third Choice": top3_jobs[2],
-    "Confidence 3": f"{probs[top3_indices[2]] * 100:.2f}%"
-}])
-
-csv = export_df.to_csv(index=False).encode('utf-8')
-st.download_button(
-    label="📥 Download My Results as CSV",
-    data=csv,
-    file_name='LANDAS_Results.csv',
-    mime='text/csv',
-)
+# Final submit button triggers save
+if st.button("✅ Submit Feedback"):
+    save_post_feedback()
+    st.success("✅ Thank you for your response! Your feedback has been recorded.")
+    st.markdown('[🏠 Back to Homepage](LANDAS.py)', unsafe_allow_html=True)
