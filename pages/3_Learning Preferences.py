@@ -26,7 +26,7 @@ with st.sidebar:
         'evaluation_rating' in st.session_state,
         'P1' in st.session_state
     ])
-    st.progress(total / 7)
+    st.progress(total / 8)
 
 st.title("Section 3: Learning Preferences (LP)")
 

@@ -325,13 +325,11 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
     st.success("🎉 Thank you for completing the assessment!")
 
     # --- Auto-clear session (after export and save) ---
-    if st.button("🏠 Back to Homepage"):
-        for key in list(st.session_state.keys()):
-            del st.session_state[key]
-        st.success("Thank you! Redirecting you now...")
-        time.sleep(1)
-        st.switch_page("LANDAS.py")  # Redirect to homepage
-    
+    # --- Trigger download and redirect ---
+    if st.button("📥 Download My Results"):
+        st.session_state['download_ready'] = True
+        st.switch_page("pages/8_Post_Result_Survey.py")
+
     st.markdown("**Start becoming #significantlybetter. Check our free e-learning courses here.**")
     st.markdown('[🌐 Visit Our Website](https://www.asklexph.com)', unsafe_allow_html=True)
 
