@@ -33,24 +33,27 @@ def save_post_feedback():
     ]
     sheet.append_row(row)
 
-# Final submit button triggers save + download
-if st.button("✅ Submit and Download"):
-    save_post_feedback()
 
-    # Prepare CSV for download
-    export_df = pd.DataFrame([{
-        "Name": st.session_state["user_info"]["name"],
-        "Email": st.session_state["user_info"]["email"],
-        "University": st.session_state["user_info"]["university"],
-        "Top Choice": st.session_state["P1"],
-        "Confidence": st.session_state["C1"],
-        "Second Choice": st.session_state["P2"],
-        "Third Choice": st.session_state["P3"],
-    }])
-    csv = export_df.to_csv(index=False).encode("utf-8")
+# --- Optional: Download Feature ---
+st.markdown("---")
+st.subheader("⬇️ Export Your Results")
 
-    # Auto-download link
-    b64 = base64.b64encode(csv).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="LANDAS_Results.csv">📥 Click here if download didn\'t start automatically</a>'
-    st.markdown("✅ Submitted! Your download should start now.", unsafe_allow_html=True)
-    st.markdown(href, unsafe_allow_html=True)
+export_df = pd.DataFrame([{
+    "Name": user_info["name"],
+    "Email": user_info["email"],
+    "University": user_info["university"],
+    "Top Choice": top3_jobs[0],
+    "Confidence 1": f"{probs[top3_indices[0]] * 100:.2f}%",
+    "Second Choice": top3_jobs[1],
+    "Confidence 2": f"{probs[top3_indices[1]] * 100:.2f}%",
+    "Third Choice": top3_jobs[2],
+    "Confidence 3": f"{probs[top3_indices[2]] * 100:.2f}%"
+}])
+
+csv = export_df.to_csv(index=False).encode('utf-8')
+st.download_button(
+    label="📥 Download My Results as CSV",
+    data=csv,
+    file_name='LANDAS_Results.csv',
+    mime='text/csv',
+)
