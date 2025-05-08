@@ -1,3 +1,4 @@
+# --- pages/9_Admin_Dashboard.py --- or similar
 import streamlit as st
 
 st.set_page_config(page_title="Admin Dashboard", page_icon="📊", layout="wide")
@@ -8,21 +9,23 @@ def check_access():
         st.session_state["admin_auth"] = False
 
     if not st.session_state["admin_auth"]:
-        password = st.text_input("🔐 Enter Admin Password", type="password")
-        if password == "alphaadmin2024":  # ✅ Replace with your secret pass
-            st.session_state["admin_auth"] = True
-            st.success("✅ Access granted.")
-        else:
-            st.warning("Incorrect password." if password else "")
+        st.title("🔐 Admin Access")
+        password = st.text_input("Enter Admin Password", type="password")
+        if password:
+            if password == "alphaadmin2024":  # 🔒 Replace with env var in production
+                st.session_state["admin_auth"] = True
+                st.success("✅ Access granted.")
+            else:
+                st.error("❌ Incorrect password. Try again.")
         st.stop()
 
 check_access()
 
-# --- Embedded GSheet Dashboard ---
+# --- Admin Dashboard Display ---
 st.title("📊 LANDAS Admin Dashboard")
+st.markdown("> ✅ Live dashboard pulled from Google Sheets")
 
-st.markdown("> 👇 Below is the live dashboard from the LANDAS Google Sheet.")
-
-dashboard_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdzYcdoi3txtJboomaUfqWErNf3IaqxYklomTUOeQ0za_IEpzrWI6XJWiSe8MW9I60-nbWfx9__Wvc/pubhtml?gid=2043121298&single=true"  # replace with your published link
+# Embed Published GSheet (make sure it's 'Published to Web')
+dashboard_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdzYcdoi3txtJboomaUfqWErNf3IaqxYklomTUOeQ0za_IEpzrWI6XJWiSe8MW9I60-nbWfx9__Wvc/pubhtml?gid=2043121298&single=true"
 
 st.components.v1.iframe(dashboard_url, height=1000, scrolling=True)
