@@ -326,7 +326,7 @@ if 'answers' in st.session_state and 'demographics' in st.session_state and 'use
 
     # --- Auto-clear session (after export and save) ---
     # --- Trigger download and redirect ---
-    if st.button("📥 Download My Results"):
+    if st.button("📥 Evaluate the results"):
         st.session_state['download_ready'] = True
         st.switch_page("pages/8_Post_Result_Survey.py")
 
