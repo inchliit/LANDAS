@@ -36,4 +36,6 @@ def save_post_feedback():
 if st.button("✅ Submit Feedback"):
     save_post_feedback()
     st.success("✅ Thank you for your response! Your feedback has been recorded.")
-    st.markdown('[🏠 Back to Homepage](LANDAS.py)', unsafe_allow_html=True)
+
+if st.button("🏠 Back to Homepage"):
+        st.switch_page("LANDAS.py")
